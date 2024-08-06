@@ -2,7 +2,7 @@ package com.itbulls.learnit.javacore.javadoc;
 
 /**
  * 
- * Hello World Application  ....==========>>>et c'est aussi un commentaire
+ * Hello World Application 
  * 
  * @author Andrii_Piatakha
  *hello alex did this and is also a comment !!
@@ -20,7 +20,7 @@ public class HelloWorld {
 		 * this code.
 		 */
 		
-		System.out.println("Hello World");
+		System.out.println("Hello World.......!");
 		
 		// TODO add more code here in the future
 	}
