@@ -28,7 +28,7 @@ public class PrimitiveTypes {
 		
 		char c2 = 100;
 		System.out.println(c2);
-		System.out.println("Our first class on java programming");
+		System.out.println("Our first class on java programming.......!");
 		
 		double d2 = i3;
 		d2 = l;
