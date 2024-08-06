@@ -2,10 +2,10 @@ package com.itbulls.learnit.javacore.javadoc;
 
 /**
  * 
- * Hello World Application
+ * Hello World Application  ....==========>>>et c'est aussi un commentaire
  * 
  * @author Andrii_Piatakha
- *hello alex did this 
+ *hello alex did this and is also a comment !!
  */
 public class HelloWorld {
 	
