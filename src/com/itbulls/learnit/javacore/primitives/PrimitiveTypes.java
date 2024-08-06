@@ -3,7 +3,7 @@ package com.itbulls.learnit.javacore.primitives;
 public class PrimitiveTypes {
 	
 	public static void main(String[] args) {
-//public static is a standard declaration for main section of code
+//public static is a standard declaration for main section of code first example ////!
 		byte b = 1;
 		short s;
 		s = 2;
