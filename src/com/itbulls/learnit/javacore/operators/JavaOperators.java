@@ -167,7 +167,7 @@ public class JavaOperators {
 
         System.out.println("5 = " + 0b101);
         System.out.println("5 >> 1 = " + (0b101 >> 1));
-        System.out.println("5 in binary format = " + Integer.toBinaryString(5));
+        System.out.println("5 in binary format = " + Integer.toBinaryString(5)); 101
         System.out.println("2 in binary format = " + Integer.toBinaryString(2)); // 10
 
         System.out.println("5 = " + 0b101); // 000000101
