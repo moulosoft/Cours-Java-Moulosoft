@@ -71,7 +71,7 @@ public class Cart {
 	// Méthode privée pour calculer le prix total hors taxes
 	private BigDecimal calculateTotalNetPrice() {
 		this.totalNetPrice = BigDecimal.valueOf(Arrays.stream(this.products) // Convertit les prix des produits
-         		en double et les somme
+         		//en double et les somme
 				.mapToDouble(product -> product != null ? product.getPrice().doubleValue() : 0)
 				.sum()).setScale(MONEY_SCALE, RoundingMode.HALF_UP); // Arrondi à l'unité supérieure 
 		//avec MONEY_SCALE décimales
