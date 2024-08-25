@@ -15,6 +15,20 @@ public class Cart {
 	private static final String DEFAULT_DISCOUNT_NAME = "zeroDiscount"; // Nom de la remise par défaut
 
 	// Compteur statique pour suivre le nombre de paniers créés
+
+	/*
+Décomposition du concept :
+
+private: Cela signifie que cette variable ou méthode est accessible uniquement depuis la classe dans 
+laquelle elle est déclarée. Elle n'est pas visible depuis d'autres classes.
+
+static: Indique que cette variable appartient à la classe elle-même et non à une instance
+particulière de cette classe. Toutes les instances de la classe partagent la même valeur pour cette variable.
+sans le static on a besoin de creer un constructeur pour utiliser la variable.
+
+final: Signifie que la valeur de cette variable ne peut pas être modifiée après son initialisation. C'est une constante.
+
+	*/
 	private static int cartCounter;
 
 	// Propriétés du panier
