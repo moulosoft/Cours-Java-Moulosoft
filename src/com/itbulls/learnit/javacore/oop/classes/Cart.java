@@ -76,6 +76,18 @@ final: Signifie que la valeur de cette variable ne peut pas être modifiée apr�
 		}
 		if (products.length < indexToAddNewProduct + 1) { // Augmente la taille du tableau si nécessaire
 			products = Arrays.copyOf(products, products.length << 1);
+
+			/*
+products.length: Donne la taille actuelle du tableau products.
+indexToAddNewProduct: Indique l'indice où le nouveau produit doit être ajouté.
+indexToAddNewProduct + 1: Représente l'indice qui serait occupé par le nouveau produit si on l'ajoutait.
+Condition: Si l'indice où l'on veut ajouter le nouveau produit est supérieur ou égal à la taille
+actuelle du tableau, cela signifie qu'il n'y a plus de place.
+Arrays.copyOf: Cette méthode de la classe Arrays permet de créer une copie d'un tableau existant.
+products: Le tableau d'origine à copier.
+products.length << 1: Calcule la nouvelle taille du tableau. L'opérateur << 1 est un décalage à gauche d'un
+bit, ce qui équivaut à multiplier par 2. En d'autres termes, on double la taille du tableau.
+			*/
 		}
 		products[indexToAddNewProduct++] = product; // Ajoute le produit au tableau et incrémente l'indice
 		calculateTotalNetPrice(); // Recalcule le prix total hors taxes
