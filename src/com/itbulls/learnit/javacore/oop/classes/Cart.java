@@ -106,7 +106,163 @@ bit, ce qui équivaut à multiplier par 2. En d'autres termes, on double la tail
 
 	// Méthode privée pour calculer le prix total avec taxes
 	private BigDecimal calculateTotalGrossPrice() {
-		if (this.totalNetPrice.doubleValue() < 0) { // Vérifie si le prix total est négatif (ne devrait pas arriver)
-			calculateTotalNetPrice(); // Recalcule le prix total si nécessaire
-		}
-		BigDecimal orderDiscount = this
+  // Vérifie si le prix net total est négatif
+  if (this.totalNetPrice.doubleValue() < 0) {
+    // Si oui, recalcule le prix net total avant de continuer
+    calculateTotalNetPrice();
+  }
+
+  // Calcule la remise sur la commande
+  BigDecimal orderDiscount = this.totalNetPrice
+      // Multiplie le prix net total par le taux de remise
+      .multiply(BigDecimal.valueOf(discount.getDiscountRate()))
+      // Arrondi à l'unité supérieure avec MONEY_SCALE décimales
+      .setScale(MONEY_SCALE, RoundingMode.HALF_UP);
+
+  // Calcule le montant total de la taxe
+  this.totalTax = this.totalNetPrice
+      // Multiplie le prix net total par le taux de taxe
+      .multiply(BigDecimal.valueOf(tax.getTaxRate()))
+      // Arrondi à l'unité supérieure avec MONEY_SCALE décimales
+      .setScale(MONEY_SCALE, RoundingMode.HALF_UP);
+
+  // Calcule le prix brut total (prix net + taxe - remise)
+  this.totalGrossPrice = this.totalNetPrice.add(this.totalTax).subtract(orderDiscount);
+
+  // Retourne le prix brut total
+  return this.totalGrossPrice;
+}
+
+public int getId() {
+  // Renvoie l'identifiant du panier
+  return id;
+}
+
+public void setId(int id) {
+  // Vérifie si l'identifiant est positif
+  if (id < 0) {
+    return;
+  }
+  // Définit l'identifiant du panier
+  this.id = id;
+}
+
+public int getUserId() {
+  // Renvoie l'identifiant de l'utilisateur associé au panier
+  return userId;
+}
+
+public void setUserId(int userId) {
+  // Définit l'identifiant de l'utilisateur associé au panier
+  this.userId = userId;
+}
+
+public Product[] getProducts() {
+  // Renvoie une copie du tableau des produits du panier
+  // (pour éviter de modifier directement le tableau interne)
+  return Arrays.copyOf(products, products.length);
+}
+
+public int getIndexOfLastProductAdded() {
+  // Renvoie l'index du dernier produit ajouté au panier
+  return indexToAddNewProduct;
+}
+
+public static int getCartCounter() {
+  // Renvoie le nombre total de paniers créés (méthode statique)
+  return cartCounter;
+}
+
+public BigDecimal getTotalNetPrice() {
+  // Renvoie le prix net total du panier (sans taxes ni remises)
+  return totalNetPrice;
+}
+
+public BigDecimal getTotalGrossPrice() {
+  // Renvoie le prix brut total du panier (avec taxes et remise appliquée)
+  return totalGrossPrice;
+}
+
+public BigDecimal getTotalTax() {
+  // Renvoie le montant total des taxes du panier
+  return totalTax;
+}
+
+public Discount getDiscount() {
+  // Renvoie l'objet Discount associé au panier (s'il y en a un)
+  return discount;
+}
+
+public void setDiscount(Discount discount) {
+  // Définit l'objet Discount associé au panier
+  this.discount = discount;
+}
+
+public void setTax(Tax tax) {
+  // Définit l'objet Tax associé au panier
+  this.tax = tax;
+}
+
+@Override
+public String toString() {
+  // Renvoie une représentation textuelle du panier
+  // (utile pour le débogage ou l'affichage)
+  return "Cart [id=" + id + ", userId=" + userId + ", totalNetPrice="
+          + totalNetPrice + ", totalGrossPrice=" + totalGrossPrice + ", totalTax="
+          + totalTax + ", products=" + Arrays.toString(products)
+          + ", indexOfLastProductAdded=" + indexToAddNewProduct + "]";
+}
+
+public class Discount {
+  // Classe interne représentant une remise
+  private String discountName;
+  private double discountRate;
+
+  public Discount(String discountName, double discountRate) {
+    this.discountName = discountName;
+    this.discountRate = discountRate;
+  }
+
+  public String getDiscountName() {
+    return discountName;
+  }
+
+  public void setDiscountName(String discountName) {
+    this.discountName = discountName;
+  }
+
+  public double getDiscountRate() {
+    return discountRate;
+  }
+
+  public void setDiscountRate(double discountRate) {
+    this.discountRate = discountRate;
+  }
+}
+
+public static class Tax {
+  // Classe interne représentant une taxe
+  private String taxType;
+  private double taxRate;
+
+  public Tax(String taxType, double taxRate) {
+    this.taxType = taxType;
+    this.taxRate = taxRate;
+  }
+
+  public String getTaxType() {
+    return taxType;
+  }
+
+  public void setTaxType(String taxType) {
+    this.taxType = taxType;
+  }
+
+  public double getTaxRate() {
+    return taxRate;
+  }
+
+  public void setTaxRate(double taxRate) {
+    this.taxRate = taxRate;
+  }
+}
