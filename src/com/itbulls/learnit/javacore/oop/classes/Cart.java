@@ -103,7 +103,29 @@ bit, ce qui équivaut à multiplier par 2. En d'autres termes, on double la tail
 		//avec MONEY_SCALE décimales
 		return this.totalNetPrice;
 	}
+/*
+BigDecimal.valueOf(...):
 
+Cette méthode de la classe BigDecimal crée un objet BigDecimal à partir d'une valeur numérique. Ici, la valeur numérique provient du résultat du stream.
+Arrays.stream(this.products):
+
+Arrays.stream(): Cette méthode crée un flux séquentiel de valeurs à partir d'un tableau.
+this.products: C'est un tableau de produits, probablement une propriété de la classe où se trouve cette méthode.
+.mapToDouble(product -> product != null ? product.getPrice().doubleValue() : 0):
+
+.mapToDouble(): Cette méthode transforme chaque élément du flux en un double.
+product != null ? product.getPrice().doubleValue() : 0: C'est une expression ternaire qui :
+Si product n'est pas nul, elle récupère le prix du produit (sous forme de double) en appelant product.getPrice().doubleValue().
+Si product est nul, elle retourne 0.
+.sum():
+
+Cette méthode somme tous les double obtenus après la transformation.
+.setScale(MONEY_SCALE, RoundingMode.HALF_UP):
+
+.setScale(): Cette méthode permet de définir le nombre de décimales et le mode d'arrondi.
+MONEY_SCALE: Une constante (probablement définie ailleurs) qui spécifie le nombre de décimales souhaité.
+RoundingMode.HALF_UP: Indique que l'arrondi doit se faire à l'unité supérieure si la partie fractionnaire est supérieure ou égale à 0.5.
+*/
 	// Méthode privée pour calculer le prix total avec taxes
 	private BigDecimal calculateTotalGrossPrice() {
   // Vérifie si le prix net total est négatif
@@ -265,4 +287,5 @@ public static class Tax {
   public void setTaxRate(double taxRate) {
     this.taxRate = taxRate;
   }
+}
 }
