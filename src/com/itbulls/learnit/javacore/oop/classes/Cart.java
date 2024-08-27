@@ -1,3 +1,5 @@
+// explication du code  video youtube  https://youtu.be/Yub_bsPM6ic 
+
 package com.itbulls.learnit.javacore.oop.classes;
 
 import java.math.BigDecimal;
