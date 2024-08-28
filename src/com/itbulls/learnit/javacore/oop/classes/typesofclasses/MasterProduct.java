@@ -1,11 +1,14 @@
 package com.itbulls.learnit.javacore.oop.classes.typesofclasses;
 
-public class MasterProduct extends Product {
+public class MasterProduct extends Product {  /// on declare la classe MasterProduct comme étant une classe héritée de Product
 
-	private boolean isAvailableForLease;
+    // Attribut privé indiquant si le produit peut être loué
+    private boolean isAvailableForLease;
 
-	@Override
-	public boolean isAvailableInStock() {
-		return getRemainingAmountInStock() > 0;
-	}
+    // Redéfinition de la méthode isAvailableInStock() héritée de la classe parente Product
+    @Override
+    public boolean isAvailableInStock() {
+        // Vérifie si la quantité restante en stock est supérieure à 0
+        return getRemainingAmountInStock() > 0;
+    }
 }
