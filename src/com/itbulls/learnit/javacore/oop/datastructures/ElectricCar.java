@@ -4,10 +4,11 @@ package com.itbulls.learnit.javacore.oop.datastructures;
 // Un package sert à organiser le code en modules réutilisables.
 
 public class ElectricCar implements Vehicle {
-    // Cette ligne déclare une classe publique nommée ElectricCar.
-    // Le mot-clé "public" signifie que cette classe peut être utilisée par d'autres classes.
-    // Le mot-clé "implements" indique que cette classe implémente l'interface Vehicle.
-    // Cela signifie qu'elle doit fournir une définition pour toutes les méthodes de l'interface Vehicle.
+    /* Cette ligne déclare une classe publique nommée ElectricCar.
+     Le mot-clé "public" signifie que cette classe peut être utilisée par d'autres classes.
+     Le mot-clé "implements" indique que cette classe implémente l'interface Vehicle.
+    Cela signifie qu'elle doit fournir une définition pour toutes les méthodes de l'interface Vehicle.
+implémenter ici signifie expliquer ce que fait le code ....*/
 
     @Override
     public void drive() {
