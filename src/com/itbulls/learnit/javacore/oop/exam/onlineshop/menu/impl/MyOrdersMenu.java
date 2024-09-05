@@ -6,47 +6,60 @@ import com.itbulls.learnit.javacore.oop.exam.onlineshop.menu.Menu;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.OrderManagementService;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.impl.DefaultOrderManagementService;
 
+/**
+ * Cette classe implémente l'interface Menu et représente le menu de consultation des commandes de l'utilisateur.
+ */
 public class MyOrdersMenu implements Menu {
 
-	private ApplicationContext context;
-	private OrderManagementService orderManagementService;
+    // Contexte de l'application injecté
+    private ApplicationContext context;
 
-	{
-		context = ApplicationContext.getInstance();
-		orderManagementService = DefaultOrderManagementService.getInstance();
-	}
+    // Service de gestion des commandes injecté
+    private OrderManagementService orderManagementService;
 
-	@Override
-	public void start() {
-		printMenuHeader();
-		if (context.getLoggedInUser() == null) {
-			System.out.println(
-					"Please, log in or create new account to see list of your orders");
-			new MainMenu().start();
-			return;
-		} else {
-			printUserOrdersToConsole();
-		}
-	}
+    // Bloc d'initialisation pour récupérer le contexte de l'application et le service de gestion des commandes
+    {
+        context = ApplicationContext.getInstance();
+        orderManagementService = DefaultOrderManagementService.getInstance();
+    }
 
-	private void printUserOrdersToConsole() {
-		Order[] loggedInUserOrders = orderManagementService
-				.getOrdersByUserId(context.getLoggedInUser().getId());
+    @Override
+    public void start() {
+        // Affiche l'en-tête du menu
+        printMenuHeader();
 
-		if (loggedInUserOrders == null || loggedInUserOrders.length == 0) {
-			System.out.println(
-					"Unfortunately, you don't have any orders yet. "
-					+ "Navigate back to main menu to place a new order");
-		} else {
-			for (Order order : loggedInUserOrders) {
-				System.out.println(order);
-			}
-		}
-	}
+        // Vérifie si l'utilisateur est connecté
+        if (context.getLoggedInUser() == null) {
+            System.out.println(
+                    "Veuillez vous connecter ou créer un nouveau compte pour voir la liste de vos commandes");
+            new MainMenu().start(); // Redirige vers le menu principal
+            return;
+        } else {
+            // Affiche les commandes de l'utilisateur connecté
+            printUserOrdersToConsole();
+        }
+    }
 
-	@Override
-	public void printMenuHeader() {
-		System.out.println("***** MY ORDERS *****");		
-	}
+    private void printUserOrdersToConsole() {
+        // Récupère les commandes de l'utilisateur connecté via le service de gestion des commandes
+        Order[] loggedInUserOrders = orderManagementService
+                .getOrdersByUserId(context.getLoggedInUser().getId());
 
+        // Vérifie si l'utilisateur a des commandes
+        if (loggedInUserOrders == null || loggedInUserOrders.length == 0) {
+            System.out.println(
+                    "Vous n'avez malheureusement pas encore de commandes. "
+                    + "Retournez au menu principal pour passer une nouvelle commande");
+        } else {
+            // Parcourt et affiche chaque commande de l'utilisateur
+            for (Order order : loggedInUserOrders) {
+                System.out.println(order); // On suppose que la classe Order possède une implémentation toString() pour afficher les informations de la commande.
+            }
+        }
+    }
+
+    @Override
+    public void printMenuHeader() {
+        System.out.println("***** MES COMMANDES *****");
+    }
 }
