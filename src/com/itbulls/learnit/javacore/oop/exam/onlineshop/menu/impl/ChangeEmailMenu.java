@@ -5,27 +5,38 @@ import java.util.Scanner;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.configs.ApplicationContext;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.menu.Menu;
 
+/**
+ * Cette classe implémente l'interface Menu et représente le menu de changement d'email.
+ */
 public class ChangeEmailMenu implements Menu {
 
-	private ApplicationContext context;
+    // Contexte de l'application injecté
+    private ApplicationContext context;
 
-	{
-		context = ApplicationContext.getInstance();
-	}
+    // Bloc d'initialisation pour récupérer le contexte de l'application
+    {
+        context = ApplicationContext.getInstance();
+    }
 
-	@Override
-	public void start() {
-		printMenuHeader();
-		Scanner sc = new Scanner(System.in);
-		String userInput = sc.next();
-		context.getLoggedInUser().setEmail(userInput);
-		System.out.println("Your email has been successfully changed");
-	}
+    @Override
+    public void start() {
+        // Affiche l'en-tête du menu
+        printMenuHeader();
 
-	@Override
-	public void printMenuHeader() {
-		System.out.println("***** CHANGE EMAIL *****");
-		System.out.print("Enter new email: ");
-	}
+        // Lit l'entrée de l'utilisateur pour le nouvel email
+        Scanner sc = new Scanner(System.in);
+        String userInput = sc.next();
 
+        // Modifie l'email de l'utilisateur connecté via le contexte de l'application
+        context.getLoggedInUser().setEmail(userInput);
+
+        // Affiche un message de confirmation
+        System.out.println("Votre email a été modifié avec succès");
+    }
+
+    @Override
+    public void printMenuHeader() {
+        System.out.println("***** CHANGER L'EMAIL *****");
+        System.out.print("Entrez votre nouvel email: ");
+    }
 }
