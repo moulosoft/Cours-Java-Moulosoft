@@ -1,6 +1,4 @@
-Sure, here’s the code with comments in plain English:
 
-```java
 package com.itbulls.learnit.javacore.oop.dry;
 
 // This is the DryPrincipleProblem class
