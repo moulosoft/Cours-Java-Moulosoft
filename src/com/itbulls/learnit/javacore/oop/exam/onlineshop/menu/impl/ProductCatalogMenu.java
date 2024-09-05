@@ -9,92 +9,100 @@ import com.itbulls.learnit.javacore.oop.exam.onlineshop.menu.Menu;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.ProductManagementService;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.impl.DefaultProductManagementService;
 
+/**
+ * Cette classe implémente l'interface Menu et représente le menu du catalogue des produits.
+ */
 public class ProductCatalogMenu implements Menu {
 
-	private static final String CHECKOUT_COMMAND = "checkout";
-	private ApplicationContext context;
-	private ProductManagementService productManagementService;
+    // Constante pour la commande de passage en caisse
+    private static final String CHECKOUT_COMMAND = "checkout";
 
-	{
-		context = ApplicationContext.getInstance();
-		productManagementService = DefaultProductManagementService.getInstance();
-	}
+    // Contexte de l'application injecté
+    private ApplicationContext context;
 
-	@Override
-	public void start() {
-		Menu menuToNavigate = null;
-		while (true) {
-			printMenuHeader();
-			printProductsToConsole();
-			
-			String userInput = readUserInput();
-			
-			if (context.getLoggedInUser() == null) {
-				menuToNavigate = new MainMenu();
-				System.out.println("You are not logged in. Please, sign in or create new account");
-				break;
-			}
-			
-			if (userInput.equalsIgnoreCase(MainMenu.MENU_COMMAND)) {
-				menuToNavigate = new MainMenu();
-				break;
-			}
-			
-			if (userInput.equalsIgnoreCase(CHECKOUT_COMMAND)) {
-				Cart sessionCart = context.getSessionCart();
-				if (sessionCart == null || sessionCart.isEmpty()) {
-					System.out.println("Your cart is empty. Please, add product to cart first and then proceed with checkout");
-				} else {
-					menuToNavigate = new CheckoutMenu();
-					break;
-				}
-			} else {
-				Product productToAddToCart = fetchProduct(userInput);
-				
-				if (productToAddToCart == null) {
-					System.out.println("Please, enter product ID if you want to add product to cart. Or enter 'checkout' if you want to proceed with checkout. Or enter 'menu' if you want to navigate back to the main menu.");
-					continue;
-				}
-				
-				processAddToCart(productToAddToCart);
-			}
-		}
-		
-		menuToNavigate.start();
-	}
+    // Service de gestion des produits injecté
+    private ProductManagementService productManagementService;
 
-	private String readUserInput() {
-		System.out.print("Product ID to add to cart or enter 'checkout' to proceed with checkout: ");
-		Scanner sc = new Scanner(System.in);
-		String userInput = sc.next();
-		return userInput;
-	}
+    // Bloc d'initialisation pour récupérer le contexte de l'application et le service de gestion des produits
+    {
+        context = ApplicationContext.getInstance();
+        productManagementService = DefaultProductManagementService.getInstance();
+    }
 
-	private void printProductsToConsole() {
-		Product[] products = productManagementService.getProducts();
-		for (Product product : products) {
-			System.out.println(product);
-		}
-	}
+    @Override
+    public void start() {
+        // Variable pour stocker le menu à lancer
+        Menu menuToNavigate = null;
 
-	private Product fetchProduct(String userInput) {
-		int productIdToAddToCart = Integer.parseInt(userInput);
-		Product productToAddToCart = productManagementService.getProductById(productIdToAddToCart);
-		return productToAddToCart;
-	}
+        // Boucle infinie pour la navigation dans le menu
+        while (true) {
+            // Affiche l'en-tête du menu
+            printMenuHeader();
 
-	private void processAddToCart(Product productToAddToCart) {
-		context.getSessionCart().addProduct(productToAddToCart);
-		System.out.printf("Product %s has been added to your cart. "
-				+ "If you want to add a new product - enter the product id. "
-				+ "If you want to proceed with checkout - enter word "
-				+ "'checkout' to console %n", productToAddToCart.getProductName());
-	}
+            // Affiche la liste des produits
+            printProductsToConsole();
 
-	@Override
-	public void printMenuHeader() {
-		System.out.println("***** PRODUCT CATALOG *****");
-		System.out.println("Enter product id to add it to the cart or 'menu' if you want to navigate back to the main menu");		
-	}
+            // Lit la saisie de l'utilisateur
+            String userInput = readUserInput();
 
-}
+            // Vérifie si l'utilisateur est connecté
+            if (context.getLoggedInUser() == null) {
+                menuToNavigate = new MainMenu();
+                System.out.println("Vous n'êtes pas connecté. Veuillez vous connecter ou créer un nouveau compte");
+                break;
+            }
+
+            // Gère la navigation vers le menu principal
+            if (userInput.equalsIgnoreCase(MainMenu.MENU_COMMAND)) {
+                menuToNavigate = new MainMenu();
+                break;
+            }
+
+            // Gère la commande de passage en caisse
+            if (userInput.equalsIgnoreCase(CHECKOUT_COMMAND)) {
+                Cart panierSession = context.getSessionCart();
+
+                // Vérifie si le panier est vide
+                if (panierSession == null || panierSession.isEmpty()) {
+                    System.out.println("Votre panier est vide. Veuillez d'abord ajouter un produit au panier, puis passer à la caisse");
+                } else {
+                    menuToNavigate = new CheckoutMenu();
+                    break;
+                }
+            } else {
+                // Traitement de l'ajout d'un produit au panier
+                Product produitAAjouter = fetchProduct(userInput);
+
+                // Vérifie si le produit existe
+                if (produitAAjouter == null) {
+                    System.out.println("Veuillez saisir l'identifiant du produit si vous souhaitez l'ajouter au panier. Ou saisissez 'checkout' pour passer à la caisse. Ou saisissez 'menu' pour revenir au menu principal.");
+                    continue;
+                }
+
+                // Ajoute le produit au panier et affiche un message de confirmation
+                processAddToCart(produitAAjouter);
+            }
+        }
+
+        // Lance le menu sélectionné
+        menuToNavigate.start();
+    }
+
+    private String readUserInput() {
+        System.out.print("Identifiant du produit à ajouter au panier ou saisissez 'checkout' pour passer à la caisse: ");
+        Scanner sc = new Scanner(System.in);
+        String userInput = sc.next();
+        return userInput;
+    }
+
+    private void printProductsToConsole() {
+        Product[] produits = productManagementService.getProducts();
+        for (Product produit : produits) {
+            System.out.println(produit); // On suppose que la classe Product possède une implémentation toString() pour afficher les informations du produit.
+        }
+    }
+
+    private Product fetchProduct(String userInput) {
+        try {
+            int productIdToAddToCart = Integer.parseInt(userInput);
+            return productManagementService.getProductById(productIdToAddTo
