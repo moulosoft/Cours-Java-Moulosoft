@@ -5,25 +5,33 @@ import com.itbulls.learnit.javacore.oop.exam.onlineshop.menu.Menu;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.ProductManagementService;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.impl.DefaultProductManagementService;
 
+/**
+ * Cette classe implémente l'interface Menu et représente le menu du catalogue de produits.
+ */
 public class ProductCatalogMenu implements Menu {
 
-	private static final String CHECKOUT_COMMAND = "checkout";
-	private ApplicationContext context;
-	private ProductManagementService productManagementService;
+    // Commande pour passer au paiement (probablement saisie par l'utilisateur)
+    public static final String CHECKOUT_COMMAND = "checkout";
 
-	{
-		context = ApplicationContext.getInstance();
-		productManagementService = DefaultProductManagementService.getInstance();
-	}
+    // Contexte de l'application injecté
+    private ApplicationContext context;
 
-	@Override
-	public void start() {
-		// <write your code here>
-	}
+    // Service de gestion des produits
+    private ProductManagementService productManagementService;
 
-	@Override
-	public void printMenuHeader() {
-		// <write your code here>	
-	}
+    // Bloc d'initialisation pour récupérer le contexte de l'application et le service de gestion des produits
+    {
+        context = ApplicationContext.getInstance();
+        productManagementService = DefaultProductManagementService.getInstance();
+    }
 
+    @Override
+    public void start() {
+        // <write your code here> // Code à implémenter pour afficher et gérer le catalogue de produits
+    }
+
+    @Override
+    public void printMenuHeader() {
+        // <write your code here> // Code à implémenter pour afficher l'en-tête du menu
+    }
 }
