@@ -5,24 +5,30 @@ import com.itbulls.learnit.javacore.oop.exam.onlineshop.menu.Menu;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.OrderManagementService;
 import com.itbulls.learnit.javacore.oop.exam.onlineshop.services.impl.DefaultOrderManagementService;
 
+/**
+ * Cette classe implémente l'interface Menu et représente le menu de consultation des commandes.
+ */
 public class MyOrdersMenu implements Menu {
 
-	private ApplicationContext context;
-	private OrderManagementService orderManagementService;
+    // Contexte de l'application injecté
+    private ApplicationContext context;
 
-	{
-		context = ApplicationContext.getInstance();
-		orderManagementService = DefaultOrderManagementService.getInstance();
-	}
+    // Service de gestion des commandes
+    private OrderManagementService orderManagementService;
 
-	@Override
-	public void start() {
-		// <write your code here>
-	}
+    // Bloc d'initialisation pour récupérer le contexte de l'application et le service de gestion des commandes
+    {
+        context = ApplicationContext.getInstance();
+        orderManagementService = DefaultOrderManagementService.getInstance();
+    }
 
-	@Override
-	public void printMenuHeader() {
-		// <write your code here>		
-	}
+    @Override
+    public void start() {
+        // <write your code here> // Code à implémenter pour afficher et gérer la liste des commandes de l'utilisateur connecté
+    }
 
+    @Override
+    public void printMenuHeader() {
+        // <write your code here> // Code à implémenter pour afficher l'en-tête du menu
+    }
 }
