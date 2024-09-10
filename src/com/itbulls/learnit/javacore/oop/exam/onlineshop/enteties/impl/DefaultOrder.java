@@ -22,6 +22,17 @@ public class DefaultOrder implements Order {
     return creditCardNumber.toCharArray().length == AMOUNT_OF_DIGITS_IN_CREDIT_CARD_NUMBER &&
            !creditCardNumber.contains(" ") && Long.parseLong(creditCardNumber) > 0;
   }
+  /*creditCardNumber.toCharArray().length == AMOUNT_OF_DIGITS_IN_CREDIT_CARD_NUMBER:
+
+Convertit la chaîne creditCardNumber en un tableau de caractères.
+Vérifie si la longueur du tableau (c'est-à-dire le nombre de chiffres dans le numéro de carte) est égale à la constante AMOUNT_OF_DIGITS_IN_CREDIT_CARD_NUMBER (probablement 16 pour les cartes standard).
+!creditCardNumber.contains(" "):
+
+Vérifie si la chaîne creditCardNumber ne contient pas d'espace. Un numéro de carte de crédit valide ne doit pas avoir d'espaces.
+Long.parseLong(creditCardNumber) > 0:
+
+Convertit la chaîne creditCardNumber en un nombre de type long (en supposant que le numéro de carte de crédit est un nombre entier).
+Vérifie si le nombre résultant est supérieur à 0. Un numéro de carte de crédit valide ne peut pas être négatif.*/
 
   // Méthode pour définir le numéro de carte de crédit
   @Override
